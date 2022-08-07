@@ -31,8 +31,14 @@
     let name = document.getElementById('name');
 
     let num = 0;
-    let src = ['lastsummer.mp3', 'paradise.wav', 'island.mp3']; //곡 이름 순서대로 저장
-
+    let src = [
+	"https://ahnssi9web.github.io/AHNSONG/내음악/강촌사람들 - 잊지는 말아야지.mp3", 
+	"https://ahnssi9web.github.io/AHNSONG/내음악/강촌사람들 - 저별과달을.mp3", 
+	"https://ahnssi9web.github.io/AHNSONG/내음악/강촌사람들 - 하얀 면사포.mp3"
+	
+	]; //곡 이름 순서대로 저장
+    
+    
     play.addEventListener('click', play_click); //play 버튼 클릭시 실행
     next.addEventListener('click', next_click); //next 버튼 클릭시 실행
     audio.addEventListener('ended', nextPlay);  //곡이 끝날때 실행
