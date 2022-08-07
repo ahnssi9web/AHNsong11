@@ -424,7 +424,8 @@
 				"https://ahnssi9web.github.io/AHNSONG/내음악/친구여.mid",
 			
 			 "https://ahnssi9web.github.io/ahn88/트럼프를 한 대 때린 남자.mp4"]; 
-	 ahnno = ahnno + 1;
+
+		
 		window.onload = function () {
 			    var playerDiv = document.getElementById("random_player");
 			    var player = document.createElement("IFRAME");
@@ -433,8 +434,11 @@
 			    player.setAttribute('height','300');
 			    player.setAttribute('src', randomVideoUrl);
 			    playerDiv.appendChild(player);
-        }; 
-		ahnno = ahnno + 1;
+			
+		document.write("ahnno");
+ 		ahnno = ahnno + 1;
+		document.write("ahnno");
+       }; 
  		// 줄바꿈   
 		document.write("");
   		// <br /> 줄바꿈을 의미하는 HTML 태그
