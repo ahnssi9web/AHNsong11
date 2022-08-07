@@ -19,7 +19,7 @@
 
   <body>
      <script>
-        ahnno=1; 
+        ahnno=-1; 
 		document.write("  1--->",ahnno);
 		document.write("<br>");
 		
@@ -431,7 +431,15 @@
 		document.write("  2--->",ahnno);
 		document.write("<br>");
 		
-		
+		document.write("  3--->",ahnno);
+		document.write("<br>");
+			
+		document.write("  4--->",ahnno);
+		document.write("<br>");
+ 		ahnno = ahnno + 1;
+		document.write("  5--->",ahnno);
+		document.write("<br>");
+					
 		window.onload = function () {
 			    var playerDiv = document.getElementById("random_player");
 			    var player = document.createElement("IFRAME");
@@ -441,9 +449,7 @@
 			    player.setAttribute('src', randomVideoUrl);
 			    playerDiv.appendChild(player);
 			
-		document.write("  3--->",ahnno);
-		document.write("<br>");
-		
+
 
        }; 
  		// 줄바꿈   
@@ -455,8 +461,6 @@
 		document.write("<br>");
 		document.write("<hr>");
 		
-		document.write("  4--->",ahnno);
-		document.write("<br>");
 		
 		document.write("<p ");
 		document.write("id = 'random_player'>");
@@ -468,13 +472,7 @@
  		// setTimeout("location.reload()", 200000);  // location.reload()  200초 3분 후 화면 지우기 성공 
  		setTimeout("location.reload()", 240000);  // location.reload()  240초 4분 후 화면 지우기 성공 
 		
-		
-		document.write("  5--->",ahnno);
-		document.write("<br>");
- 		ahnno = ahnno + 1;
-		document.write("  6--->",ahnno);
-		document.write("<br>");
-		
+
 		
   		// <br /> 줄바꿈을 의미하는 HTML 태그
 		document.write("<br>");
