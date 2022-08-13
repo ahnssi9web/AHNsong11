@@ -10,7 +10,10 @@
 
 <body>
 
-<audio id="audio1">
+
+
+
+<audio id="audio1" controls>
 <source src="https://ahnssi9web.github.io/AHNSONG/내음악/최희준 - 나는곰이다.mp3"/>
 </audio>
 
@@ -18,14 +21,14 @@
     <source src="https://ahnssi9web.github.io/AHNSONG/내음악/즐거운인생 12 한동안 뜸했었지 - 활화산.mp3" />
 </audio>
 <p>
-<button id="play"> 애창곡 듣기</button>
-<button id="stop"> 애창곡 멈춤 </button>
+<button id="play"> 애창곡2 듣기</button>
+<button id="stop"> 애창곡2 멈춤 </button>
 </p>
 <div id="music_list">
     <audio controls autoplay></audio>
 </div>
 
-    <span><input   placeholder=" 시작번호 : "  type="number" id="guess1"><p id="g1s"></p></span>
+    <span><input   placeholder=" 시작번호 : "  type="number" id="guess1" value=ahnno><p id="g1s"></p></span>
     <input type="button" onclick="Calculate()" value="Calculate">
 
     <script>
@@ -39,6 +42,10 @@
 	
 
 <button id="next"> 왜불러16  김광석43 김민기81 포크100 노찾사140 송창식203 양희은238 윤도현266 임재범309 장사익320 조용필336  </button>
+
+<p id='name'> 현재 연주되는 곡명이 보입니다. </p>
+<p id="text"> ahn--->> 연주곡 간신히 찾았다. </p>	
+<p id="text2"> ahnno -->> 연주곡 번호 </p>	
 
 <script>
 		var audio_info = document.getElementById('audio1');
@@ -495,6 +502,12 @@
 			// music_player.src = files[i];
 			music_player.src = files[ahnno];
 			
+			var str = document.getElementById("text");
+			str.innerHTML = files[ahnno];
+
+			var str2 = document.getElementById("text2");
+			str2.innerHTML = ahnno;
+		
   files[ahnno];
 		}
 
@@ -506,6 +519,13 @@
 			// music_player.src = files[i];
 			music_player.src = files[ahnno];
 			
+		var str = document.getElementById("text");
+		str.innerHTML = files[ahnno];
+
+		var str2 = document.getElementById("text2");
+		str2.innerHTML = ahnno;
+		
+		
 			// Listen for the music ended event, to play the next audio file
 			music_player.addEventListener('ended', ahnnext, false)
 		}
