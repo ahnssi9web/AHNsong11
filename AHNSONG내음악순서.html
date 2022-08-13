@@ -10,20 +10,17 @@
 
 <body>
 
-
-
-
 <audio id="audio1" controls>
-<source src="https://ahnssi9web.github.io/AHNSONG/내음악/최희준 - 나는곰이다.mp3"/>
-</audio>
-
-<audio id="audio2" controls>
+	<source src="https://ahnssi9web.github.io/AHNSONG/내음악/최희준 - 나는곰이다.mp3"/>
     <source src="https://ahnssi9web.github.io/AHNSONG/내음악/즐거운인생 12 한동안 뜸했었지 - 활화산.mp3" />
 </audio>
+
 <p>
-<button id="play"> 애창곡2 듣기</button>
-<button id="stop"> 애창곡2 멈춤 </button>
+<button id="play"> 애창곡 듣기</button>
+<button id="stop"> 애창곡 멈춤 </button>
 </p>
+
+
 <div id="music_list">
     <audio controls autoplay></audio>
 </div>
@@ -44,7 +41,7 @@
 <button id="next"> 왜불러16  김광석43 김민기81 포크100 노찾사140 송창식203 양희은238 윤도현266 임재범309 장사익320 조용필336  </button>
 
 <p id='name'> 현재 연주되는 곡명이 보입니다. </p>
-<p id="text"> ahn--->> 연주곡 간신히 찾았다. </p>	
+<p id="text"> ahn --->> 연주곡 간신히 찾았다. </p>	
 <p id="text2"> ahnno -->> 연주곡 번호 </p>	
 
 <script>
@@ -56,7 +53,6 @@
 			document.getElementById('stop').addEventListener('click', function(){
 				audio_info.pause();
 			}, false);
-			
 		//
 			document.getElementById('next').addEventListener('click', function(){
 				ahnmusic();
@@ -64,27 +60,7 @@
 </script>
 
 
-<script>
-	//JS part
-    var audio_info = document.getElementById('audio2');
-    audio_info.addEventListener('playing', function(e){
-        console.log('Audio playback has started ...');
-        console.log('Playback started at : '+ e.target.currentTime +" seconds");
-    }, false);
-    audio_info.addEventListener('pause', function(e){
-        console.log('Audio playback has been paused ...');
-        console.log('Playback paused at : '+ e.target.currentTime +" seconds");
-    }, false);
 
-    audio_info.addEventListener('ended', function(e){
-        console.log('Playback has ended');
-    }, false);
-    audio_info.addEventListener('volumechange', function(e){
-        console.log("Volume has changed ...");
-        console.log("Volume is now "+ e.target.volume);
-    }, false);
-	
-</script>
 <script>
 		function ahnmusic() {
 		// Playlist array
