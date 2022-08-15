@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+    </style>
+</head>
+
+
+<body>
+
+
+
+<div id="music_list">
+    <audio controls autoplay></audio>
+	 
+</div>
+
+    <span><input    type="number" id="guess1" value=39></span>
+    <input type="button" onclick="Calculate()" value="확인">
+    <script>
+		function Calculate() {
+			var GuessCon1 = document.getElementById("guess1").value;
+			ahnno = GuessCon1;
+			//var GuessCon1sub = GuessCon1 - 500;
+			//document.getElementById("g1s").innerHTML = GuessCon1sub;
+	}
+	</script>
+	
+
+<p>
+<button id="play"> 계속 듣기</button>
+<button id="random"> 임의대로 재생 </button>
+<button id="next"> 왜불러16  김광석43 김민기81 포크100 노찾사140 송창식203 양희은238 윤도현266 임재범309 장사익320 조용필336-390  </button>
+</p>
+
+<p id='name'> 현재 연주되는 곡명이 보입니다. </p>
+<p id="text"> ahn --->> 연주곡 간신히 찾았다. </p>	
+<p id="text2"> ahnno -->> 연주곡 번호 </p>	
+		
+
+<script>
+			document.getElementById('play').addEventListener('click', function(){
+				playmusic();
+			}, false);
+		//
+			document.getElementById('random').addEventListener('click', function(){
+				randomplay();
+			}, false);
+		//
+			document.getElementById('next').addEventListener('click', function(){
+				nextplay();
+			}, false);
+</script>
+
+
+<script>
+		// Playlist array
+		var files = [
+
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_AirOnTheGstringChungKyungWha.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_AirOntheGStringfromsuiteno3inDBerlinChamberEnsembleJanJansen.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_BrandenbrugConcertoNo.5inDBWV1050IAllegroIonaBrownAcademyOfSt.MartinNevilleMarriner.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_ConcertoFor2ViolinosAndStringsBWV1043.1.Vivace.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_ConcertoFor2ViolinosAndStringsBWV1043.2.LargoMaNonTanto.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_ConcertoFor2ViolinosAndStringsBWV1043.3.Allegro.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_ConcertoforViolinNo1BWV1001.1.adagioNathanMilstein.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_ConcertoforViolinNo1BWV1001.2.Fuga.AllegroNathanMilstein.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_ConcertoforViolinNo1BWV1001.3.SicilianaNathanMilstein.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_ConcertoforViolinNo1BWV1001.4.PrestoNathanMilstein.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_FrenchSuiteNo.1inDminorBWV812.I.AllemandeAndreiGavrilov.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_FrenchSuiteNo.1inDminorBWV812.II.CouranteAndreiGavrilov.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_FrenchSuiteNo.1inDminorBWV812.III.SarabandeAndreiGavrilov.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_FrenchSuiteNo.1inDminorBWV812.IV.MenuetIAndreiGavrilov.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_FrenchSuiteNo.1inDminorBWV812.V.MenuetIIAndreiGavrilov.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_FrenchSuiteNo.1inDminorBWV812.VI.GigueAndreiGavrilov.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_FrenchSuiteNo.3inBminorBWV814_1.Allemande-AndreiGavrilov.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_FrenchSuiteNo.3inBminorBWV814_2.Courante-AndreiGavrilov.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_FrenchSuiteNo.3inBminorBWV814_3.Saravande-AndreiGavrilov.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_FrenchSuiteNo.3inBminorBWV814_4.Menuet-AndreiGavrilov.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_FrenchSuiteNo.3inBminorBWV814_5.TrioAndreiGavrilov.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_FrenchSuiteNo.3inBminorBWV814_6.Anglaise-AndreiGavrilov.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_FrenchSuiteNo.3inBminorBWV814_7.Gigue-AndreiGavrilov.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_Inventionno.1_Cmaj_ReynoldAllan.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_Inventionno.1in_C_Ma.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_inventionno.1incBWV772PeterArberle.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_Inventionno.2_in_C_mi773.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_inventionno.4BWV775PeterArberle.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_inventionNo.4inDminorRobinAlciatore.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_Inventionno.5_in_E_fl776.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_Inventionno.6_in_E_BW777.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_inventionno.6BWV777MelissaLynnSmith.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_inventionno.8_inFMaj_BronikaKushkuley.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_inventionno.8BWV779PeterArberle.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_Inventionno.9_BWV780.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_Inventionno.13_in_.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_inventionno.13BWV784PeterArberle.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_inventionno.14BWV785PeterArberle.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_ItalianConcerto-inFMajorBWV971-1.WithoutIndication-DubravkaTomsic.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_ItalianConcerto-inFMajorBWV971-2.Andante-DubravkaTomsic.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_ItalianConcerto-inFMajorBWV971-3.Presto-DubravkaTomsic.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_JesuJoyOfMansDesiringPhilippeEntrampnt.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_MilsteinNathanSonata for solo violinNo.2inAminorBWV1003-1.Grave.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_MilsteinNathanSonata for solo violinNo.2inAminorBWV1003-2.Fuga.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_MilsteinNathanSonata for solo violinNo.2inAminorBWV1003-3.Andante.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_MilsteinNathanSonata for solo violinNo.2inAminorBWV1003-4.Allegro.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_MilsteinNathanSonata for solo violinNo.3inCmajorBWV1005-1.Adagio.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_MilsteinNathanSonata for solo violinNo.3inCmajorBWV1005-2.Fuga.Alla breve.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_MilsteinNathanSonata for solo violinNo.3inCmajorBWV1005-3.Largo.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_MinuetGmajorPhiladelphiaOrchestra.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_Partita6_Toccata.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_sisilianonikolayeba.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_TOCCATA_BWV_916_FRITZ_STEINEGGER.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_Toccata_in_e_mBWV914_Sonia_Rubinsky.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_Toccata_in_F_BWV_540.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_Toccata_in_G__BMW1016_MARIANNA_RASHKOVETSKY.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Bach_ViolinConcerto.no.1inAminorIallegroBerlinChamberEnsemle.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven 15VariationenEflatMajorOp.35AllegeroconbrioAllegrettoviavceGrafMoritzLichnowsky112.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven BagatelleNo.25inAMinoForEliseDameMouraLympany.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven BagatelleNo.25inAMinoForEliseDaniellRevenaugh.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven BagatelleNo.25inAMinoForEliseEvelyneDubourg.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven BagatelleNo.25inAMinoForEliseVladimirAshkenazy.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven bthvnpnvrtn1-6WoO70Gmj.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven bthvnpsntinenGmjromanze.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven CelloSonatainFMaj.Op.5No.1.1-1.AdagiosostenutoMishaMaiskyMarthaArgerich.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven CelloSonatainFMaj.Op.5No.11-2.AllegroMishaMaiskyMarthaArgerich.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven CelloSonatainFMaj.Op.5No.11-3.Adagio-Presto-tempoprimoMishaMaiskyMarthaArgerich.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven CelloSonatainFMaj.Op.5No.12.Rondo.AllegrovivaceMishaMaiskyMarthaArgerich128.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven DieWeihedesHausesOp.32kbps.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven DieWeihedesHausesOp.32kbps-헌당식서곡.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven fidelioGottWelchDunkelheirIndesLebensFruhlingstagen.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven fideloAbscheulicherWoeilstduhinKommHoffnunglassdenletztenStern.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven fideloAct1JetztSchaetzchenjetztsindwirallein.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven fideloEuchwerdeLohninbessernWelten.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven fideloGutShoenchenguthabimmerMut.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven fideloHatmannichtauchgoldbeineben.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven fideloJetztAlterhatesEile.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven fideloLebwohlduwarmesSonnenlicht.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven fideloMarsch.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven fideloMiristsowunderbar.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven fideloNunsprechtwiegingsNochheutenochheuteAchVatereiltVerwegnerAlter.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven fideloOuvertuere.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven fideloOwaerichschonmitdirvereint.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven fideloOwelcheLustinfreierLuftdenAtemleichtzuheben.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven fideloWiekaltistesindiesemunterirdischenGewoelbeNurhurtigfortnurfrischgegraben.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven ichliebedichPeterSchreier(Faborite song).mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven ichliebedichPeterSchreier.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven lied.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata 14inCSharpMinorOP.27No.2.I.AdigioSostenutoNicholasWalker.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata 14inCSharpMinorOP.27No.2.I.AdigioSostenutoPhilppeEntremont.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.1inFminorOp.2-1.1AllegroJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.1inFminorOp.2-1.2AdagioJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.1inFminorOp.2-1.3MeneuttoAllegrettoJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.1inFminorOp.2-1.4PrestissimoJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.2 in A major, Op. 2-2- 1. Allegro vivace Jeno Jando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.2 in A major, Op. 2-2- 2. Largo appassionato Jeno Jando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.2 in A major, Op. 2-2- 3. Scherzo, Allegretto Jeno Jando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.2 in A major, Op. 2-2- 4. Rondo, Grazioso Jeno Jando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Pianosonata No.5inCOp.10No.1.IAllegroMoltoEconBrio.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Pianosonata No.5inCOp.10No.1.IIAdagioMolto.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Pianosonata No.5inCOp.10No.1.IIIFinalePrestissimo.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.6inFmajorOp.10-2-1.AllegroJandoJeno.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.6inFmajorOp.10-2-2.AllegrettoJandoJeno.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.6inFmajorOp.10-2-3.PrestoJandoJeno.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.7inDmajorOp.10-3-1.Presto.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.7inDmajorOp.10-3-2.LargoEMesto.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.7inDmajorOp.10-3-3.MenuettoAllegro.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.8inCminorOp.13-I Adagio-cantabile_RonaldBrautigam.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.8inCminorOp.13-I.Grave-Allegro-di-molto-e-con-brio_RonaldBrautigam.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.8inCminorOp.13-II PathetiqueIIIRondoAllegro.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.8inCminorOp.13-III pathetiqueIGraveAllegroDiMoltoEConBrio.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.9inEmajorOp.14-1.1.AllegroJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.9inEmajorOp.14-1.2.AllegrettoJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.9inEmajorOp.14-1.3.Rondo.AllegrocomodoJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.11inBflatmajorOp.22-1.AllegroconbrioJandoJeno.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.11inBflatmajorOp.22-2.AdagioconmoltaespressioneJandoJeno.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.11inBflatmajorOp.22-3.Menuetto.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.11inBflatmajorOp.22-4.RondoAllegrettoJandoJeno.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.13inEflatOp.27.1.1AndanteJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.13inEflatOp.27.1.2AllegromoltoevivaceJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.13inEflatOp.27.1.3ADagioconespresioneJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.13inEflatOp.27.1.4AllegrovivaceJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.14inCSharpMinorOP.27No.2.I.AdigioSostenutoJanoJendo.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.14inCSharpMinorOP.27No.2.IIAllegroJanoJendo.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.14inCSharpMinorOP.27No.2.IIIPrestoAgitatoJanoJendo.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.16inGmajorOp.31No.1.IAllegrovivace.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.16inGmajorOp.31No.1.IIAdagioGragioso.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.16inGmajorOp.31No.1.IIIrondoAllegertto.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.17inDminorTempestOp.31-2.1AllegroJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.17inDminorTempestOp.31-2.2AdagioJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.17inDminorTempestOp.31-2.3AllegrettoJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.18inEflatOp.31No.3.1AllogroJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.18inEflatOp.31No.3.2Scherzo.AllegrettoVivaceJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.18inEflatOp.31No.3.3Menuetto.ModeratoEGraziosoJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.18inEflatOp.31No.3.4PrestoConFuocoJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.21 in C Major Op. 53 1. Allegro von brio Nicholas Walker.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.21 in C Majotr Op. 53 2. Introduzione-Adagio molto Nicholas Walker.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.21 in C Majotr Op. 53 3.Finale-Rondo-Allegretto moderato Nicholas Walker.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.22 in F major Op. 54-1In tempo d'un Menuetto Jeno Jando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.22 in F major Op. 54-2Allegretto-Piu Allegro Jeno Jando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.23 in F minor Op. 57 1. Allegro assai Nicholas Walker.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.23 in F minor Op. 57 2. Andante con moto Nicholas Walker.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.23 in F minor Op. 57 3. Allegero ma non troppo Nicholas Walker.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.25_Op.79_1.Presto_alla_tedesca_Jeno_Jando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.25_Op.79_2.Andante_Jeno_Jando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.25_Op.79_3.Vivace_Jeno_Jando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.28inAmajorOp.101-1.Allegretto-ma-non-troppo-con-intimissimo-sentimentoJandoJeno.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.28inAmajorOp.101-2.Vivace-alla-MarciaJandoJeno.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.28inAmajorOp.101-3.Adagio-ma-non-troppo-con-affettoJandoJeno.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.29inBflatmajorHammerklavierOp.106-1.AllegroJandoJeno.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.29inBflatmajorHammerklavierOp.106-2.ScherzoAssaivivaceJandoJeno.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.29inBflatmajorHammerklavierOp.106-4.LargoAllegrorisolutoJandoJeno.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.29inBflatmajorHammerklavierOp.106-5.FugaJandoJeno.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.29inBflatmajorOp.106-3.AdagiosostenutoAppassionatoeonmoltosentimento.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.30EMjorOp.109-1.VivacemanontropoJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.30EMjorOp.109-2.PrestissimoJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven PianoSonata No.30EMjorOp.109-3.AndantemoltocantabileeespressivoJenoJando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven RomanceforviolinandorchestraNo.2inFmajorOp.50.ShlomoMintzPhilharmoniaOrch.GiuseppeSinopoli.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.1 inCop.21.1.AdagioMolto-AllegroConBrio.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.1 inCop.21.2.AndanteCantabileConMoto.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.1 inCop.21.3.Menuetto.AllegroMoltoEVivace.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.1 inCop.21.4.Adagio-AllegroMoltoEVivace.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.2 inDMajorop.36.1.Adagio-AllegroConBrio.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.2 inDMajorop.36.3.ScerzoAllegro.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.2 inDMajorop.36.4.AllegroMolto.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.3 inEflatMajop.55Eroica1.Allegroconbrio.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.3 inEflatMajop.55Eroica2.MarciafunebreAdagioassaiBerlinKarajan.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.3 inEflatMajop.55Eroica3.ScherzoAllegrovivaceBerlinKarajan.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.3 inEflatMajop.55Eroica4.Finale.AllegromoltoBerlinKarajan.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.4 inBFlatMajorop.60.1.Adagio-Allegrovivace.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.4 inBFlatMajorop.60.2.Adagio.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.4 inBFlatMajorop.60.3.Allegrovivace.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.4 inBFlatMajorop.60.4.Allegromanontropo.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.5 inCMinorop.67.1.Allegroconbrio.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.5 inCMinorop.67.2.Andanteconmoto.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.5 inCMinorop.67.3.Allegro.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.5 inCMinorop.67.4.Allegro.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.6 inFMajorop.68Pastorale.1.Allegromanontropo.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.6 inFMajorop.68Pastorale.2.Andantemoltomosso.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.6 inFMajorop.68Pastorale.3.Allegro.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.6 inFMajorop.68Pastorale.4.Allegro.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.6 inFMajorop.68Pastorale.5.Allegretto.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.7 inAmajorOp.92.1.PocosostenutoVivaceBerlinPhilKarajan.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.7 inAmajorOp.92.2.AllegrettoBerlinPhilKarajan.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.7 inAmajorOp.92.3.PrestoBerlinPhilKarajan.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.7 inAmajorOp.92.4.AllegroconbrioBerlinPhilKarajan.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.8 inFMajorop.93.1.Allegrovivaceeconbrio.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.8 inFMajorop.93.2.Allegrettoscherzando.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.8 inFMajorop.93.3.Tempodimenueto.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.8 inFMajorop.93.4.Allegrovivace.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.9 (Scherzo).wma",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.9-1 AllegroMaNonTroppoUnPocoMaestosoBerlinKarajan.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.9-2 MoltoVivaceBerlinKarajan.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.9-3 AdagioMoltoECantabileBerlinKarajan.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.9-4 PrestoBerlinKarajan.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven SymphonieNo.94 PrestoAllegroassaiBerlinKarajan.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Symphony2 No9I AllegromaNonTroppoUnPocoMaestosoNewYork.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Symphony2 No9II MoltovivacePrestoMoltovivaceNewYork.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Symphony2 No9III AdagiomoltoecantabileAndantemoderatoNewYork.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Symphony2 No9IV PrestoAllegroassa64iNewYork.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Symphony3 No9I AllegroMaNonTroppoUnPocoMaestosoBostonLeinsdorf.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Symphony3 No9II MoltovivaceBostonLeinsdorf.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Symphony3 No9III AdagiomoltoecanatabileBostonLeinsdorf.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Symphony3 No9IV PrestoAllegroassaiBostonLeinsdorf64.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Symphony4 No9I AllegromanontroppounpocomaestosoTheBayreutherFestspieleOrchestra128.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Symphony4 No9II MoltovivaceTheBayreutherFestspieleOrchestra128.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Symphony4 No9III AdagiomoltoecantabileAndantemoderatoAdagioTheBayreutherFestspieleOrchestra128.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Symphony4 No9IV PrestoOdetoJoyTheBayreutherFestspieleOrchestra96.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Symphony5 No.9 InDOp.125I AllegroMaNonTroppoUnPocoMaestosoDresdenSymphonyHerbertBlomstedt.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Symphony5 No.9 InDOp.125II MoltoVivaceDresdenSymphonyHerbe.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Symphony5 No.9 InDOp.125III AdagioMoltoECantabileDresdenSym.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Symphony5 No.9 InDOp.125IV PrestoDresdenSymphonyHerbertBlomstedt.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven TripleConcerto_inCMajorOp.56_I.AllegroGezaAndaWofgangScheiderhanPierreFournierBerlinRadioFerencFricsay.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven TripleConcerto_inCMajorOp.56_II.LargoGezaAndaWofgangScheiderhanPierreFournierBerlinRadioFerencFricsay.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven TripleConcerto_inCMajorOp.56_III.Rondo_alla_polaccaGezaAndaWofgangScheiderhanPierreFournierBerlinRadioFerencFricsay.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven ViolinSonata No.5 inFmajorOp.24.1.AllegroMenuhinKempff.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven ViolinSonata No.5 inFmajorOp.24.2.AdagioMoltoEspressivoMenuhinKempff.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven ViolinSonata No.5 inFmajorOp.24.3.Scherzo.AllegroMoltoMenuhinKempff.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven ViolinSonata No.5 inFmajorOp.24.4.Rondo.AllegroMaNonTroppoMenuhinKempff.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Violinsonata No.9 inAop.47.1.Adagiosostenuto-Presto-Adagio-Tempomenuhinkempff.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Violinsonata No.9 inAop.47.2.AndanteconVariationI-IVmenuhinkempff.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Beethoven Violinsonata No.9 inAop.47.3.Finale.Prestomenuhinkempff.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.2inFMajorK.280.I.AllegroAssaiCalla.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.2inFMajorK.280.II.Adagiocalla.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.2inFMajorK.280.III.PrestoCalla.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.6inDk.284IAllegroAndrasSchiff.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.6inDk.284IIPolonaiseEnRondeauAndrasSchiff.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.7inC.K309.I.AllegroconSpirito80.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.7inC.K309.II.AndaqnteUnPocoAdagio.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.7inC.K309.III.Rondeau.AllegroGrazioso112.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.8inAMinor_K.310-1.Allegro_maestosso-VladimirAskenazy.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.8inAMinor_K.310-2.Andante_cantabile_con_espressione-VladimirAskenazy.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.8inAMinor_K.310-3.Presto-VladimirAskenazy.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonatano.9inDk311.1.allegroconSpiritoGlennGopuld.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonatano.9inDk311.2.AndanteConespressioneGlennGopuld.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonatano.9inDk311.3.Rondeau.AllegroGlennGopuld.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.10 inCMajk330.1.AllegroModeratoAliciaDeLarrocha96.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.10inCMajk330.2.AndanteCantaabileAliciaDeLarrocha96..mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.10inCMajk330.3.AllegrettoAliciaDeLarrocha96.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.11inAmajorK.331.1.ThemeAndantegraziosoGouldGlenn.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.11inAmajorK.331.2.MenuettoTrioGouldGlenn.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.11inAmajorK.331.3.AllaTurcaAllegrettoGouldGlenn.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.12InFMajorIAllegroGlennGould.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.12InFMajorIIAdagioGlennGould.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.12InFMajorIIIAllegroAssaiGlennGould.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.13inBflatmajorK.333_1.AllegroGlennGould.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.13inBflatmajorK.333_2.AndantecantabileGlennGould.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.13inBflatmajorK.333_3.AllegrettograziosoGlennGould.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.14inCminorK.457IIAdagioMitsukoUchida.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.14inCminorK.457IIIAllegroassaiUchidaMitsuko.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.14inCminorK.457IMoltoAllegroUchidaMitsuko.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.15K545IAllegeroAliciaLarrocha.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.15K545IAllegeroPhilippeEntremont.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.15K545IIAndanteAliciaLarrocha.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.15K545IIAndantePhilippeEntremont.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.15K545IIIRondoAliciaLarrocha.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo.15K545IIIRondoPhilippeEntremont.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo16K570.1.allegroGlennGould.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo16K570.2.adagioGlennGould.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart PianoSonataNo16K570.3.allegrettoGlennGould.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart Ps6inDk.284IIITemaConVariazioniAndrasSchiff.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart SonataNo.2pianosinDmajorK.448.1.AllegroconspiritoEnnioPastorinoAnliPang.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart SonataNo.2pianosinDmajorK.448.2.AndanteEnnioPastorinoAnliPang.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart SonataNo.2pianosinDmajorK.448.3.MoltoallegroEnnioPastorinoAnliPang.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart SonataNo.15InCMajor-AllegroGlennGould.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart SonataNo.15InCMajor-AndanteGlennGould.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart SonataNo.15InCMajor-RondoAllegrettoGlennGould.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart_Sym_No.25_inGminor_K.183_1.Allegro_con_brio_ViennaPill_IstvanKertesz.mp3.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart_Sym_No.25_inGminor_K.183_2.Andate_ViennaPill_IstvanKertesz.mp3.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart_Sym_No.25_inGminor_K.183_3.Menueto_ViennaPill_IstvanKertesz.mp3.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart_Sym_No.25_inGminor_K.183_4.Allegero_ViennaPill_IstvanKertesz.mp3.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart_Sym_No.40_inGminor_k.550_1.Molto_allegero_SalzburgMozarteumOrchestra_HansGraf.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart_Sym_No.40_inGminor_k.550_2.Andante_SalzburgMozarteumOrchestra_HansGraf.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart_Sym_No.40_inGminor_k.550_3.Minuetto.Allegro_SalzburgMozarteumOrchestra_HansGraf.mp3",
+				"https://ahnssi9web.github.io/AHNSONG/내고전/Mozart_Sym_No.40_inGminor_k.550_4.Allegro_assai_SalzburgMozarteumOrchestra_HansGraf.mp3"
+
+			
+		];
+		
+
+		// Get the audio element
+		var music_player = document.querySelector("#music_list audio");
+		
+
+</script>
+
+
+
+<script>
+
+	
+		function playmusic() {
+			// Change the audio element source
+			// music_player.src = files[i];
+			music_player.src = files[ahnno];
+			// Listen for the music ended event, to play the next audio file
+			music_player.addEventListener('ended', playmusic, false)
+			
+			var str = document.getElementById("text");
+			str.innerHTML = files[ahnno];
+
+			var str2 = document.getElementById("text2");
+			str2.innerHTML = ahnno;			
+		}
+		
+
+		// function for moving to next audio file
+		function nextplay() {
+			// Check for last audio file in the playlist
+			if (ahnno === files.length - 1) {
+				ahnno= 0;
+			} else {
+				ahnno++;
+			}
+			music_player.src = files[ahnno];
+			// Listen for the music ended event, to play the next audio file
+			music_player.addEventListener('ended', nextplay, false)
+			var str = document.getElementById("text");
+			str.innerHTML = files[ahnno];
+
+			var str2 = document.getElementById("text2");
+			str2.innerHTML = ahnno;
+			}
+
+			
+			
+		// function for moving to next audio file
+		function randomplay() {
+			// Check for last audio file in the playlist
+			// Check for last audio file in the playlist
+			ahnno = Math.floor(Math.random() * files.length);
+			if (ahnno === files.length - 1) {
+				ahnno= 0;
+			} 
+			music_player.src = files[ahnno];
+			// Listen for the music ended event, to play the next audio file
+			music_player.addEventListener('ended', randomplay, false)
+			var str = document.getElementById("text");
+			str.innerHTML = files[ahnno];
+
+			var str2 = document.getElementById("text2");
+			str2.innerHTML = ahnno;
+			}
+	
+</script>
+
+</body>
+</html>
